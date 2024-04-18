@@ -20,25 +20,27 @@
     </table>
 
     <script>
-        // Function to fetch JSON data from a file
-        function fetchJSONFile(path, callback) {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        var data = JSON.parse(xhr.responseText);
-                        if (callback) {
-                            callback(data);
-                        }
-                    }
-                }
-            };
-            xhr.open("GET", path, true);
-            xhr.send();
-        }
+        // JSON data
+        var jsonData = [
+            {
+                "title": "ILLENIUM, Chandler Leighton - Lonely (Visualizer)",
+                "channel": "IlleniumVEVO",
+                "Id": "BWorPV9036o"
+            },
+            {
+                "title": "Ben Böhmer - Beyond Beliefs (Official Visualiser)",
+                "channel": "Ben Böhmer",
+                "Id": "aVTalm2VjDc"
+            },
+            {
+                "title": "Sabai - Memories (feat. Claire Ridgely) [Monstercat Release]",
+                "channel": "Monstercat Instinct",
+                "Id": "TLzreAqXSyU"
+            }
+        ];
 
         // Function to create table rows from JSON data
-        function createTableRows(jsonData) {
+        function createTableRows() {
             var tableBody = document.querySelector('#videoTable tbody');
             jsonData.forEach(function(video) {
                 var row = "<tr><td>" + video.title + "</td><td>" + video.channel + "</td><td>" + video.Id + "</td></tr>";
@@ -46,8 +48,8 @@
             });
         }
 
-        // Call the function to fetch JSON data and create table rows
-        fetchJSONFile("currentSongs.json", createTableRows);
+        // Call the function to create table rows
+        createTableRows();
     </script>
 </body>
 </html>
