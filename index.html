@@ -9,9 +9,9 @@
     <table id="json-table">
         <thead>
             <tr>
-                <th>Column 1</th>
-                <th>Column 2</th>
-                <!-- Add more table headers if needed -->
+                <th>Title</th>
+                <th>Channel</th>
+                <th>ID</th>
             </tr>
         </thead>
         <tbody>
@@ -20,16 +20,16 @@
     </table>
 
     <script>
-        fetch('currentSongs.json')
+        fetch('data.json')
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.querySelector('#json-table tbody');
                 data.forEach(item => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${item.field1}</td>
-                        <td>${item.field2}</td>
-                        <!-- Add more table cells if needed -->
+                        <td>${item.title}</td>
+                        <td>${item.channel}</td>
+                        <td>${item.Id}</td>
                     `;
                     tableBody.appendChild(row);
                 });
