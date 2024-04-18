@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON Table</title>
+    <title>JSON Data Table</title>
 </head>
 <body>
-    <table id="json-table">
+    <table id="videoTable">
         <thead>
             <tr>
                 <th>Title</th>
@@ -15,26 +15,39 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Table body will be populated dynamically -->
+            <!-- Table body will be filled dynamically -->
         </tbody>
     </table>
 
     <script>
-        fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.querySelector('#json-table tbody');
-                data.forEach(item => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${item.title}</td>
-                        <td>${item.channel}</td>
-                        <td>${item.Id}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error fetching JSON:', error));
+        // Function to fetch JSON data from a file
+        function fetchJSONFile(path, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var data = JSON.parse(xhr.responseText);
+                        if (callback) {
+                            callback(data);
+                        }
+                    }
+                }
+            };
+            xhr.open("GET", path, true);
+            xhr.send();
+        }
+
+        // Function to create table rows from JSON data
+        function createTableRows(jsonData) {
+            var tableBody = document.querySelector('#videoTable tbody');
+            jsonData.forEach(function(video) {
+                var row = "<tr><td>" + video.title + "</td><td>" + video.channel + "</td><td>" + video.Id + "</td></tr>";
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Call the function to fetch JSON data and create table rows
+        fetchJSONFile("currentSongs.json", createTableRows);
     </script>
 </body>
 </html>
